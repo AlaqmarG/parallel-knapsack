@@ -1,4 +1,6 @@
-# OptiSack: Parallel Branch-and-Bound Knapsack Solver
+# Parallel Knapsack
+
+Originally **OptiSack**, a team parallel-computing project by Alaqmar G. and Connor B. The repository name now describes the problem directly; the implementation and project history are preserved.
 
 <p align="center">
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg?style=flat-square" alt="License"></a>
@@ -45,8 +47,8 @@ This project implements and compares multiple parallel approaches to solving the
 
 ```bash
 # Get the code
-git clone https://github.com/AlaqmarG/OptiSack.git
-cd OptiSack
+git clone https://github.com/AlaqmarG/parallel-knapsack.git
+cd parallel-knapsack
 
 # Try it out with OpenMP (auto-detects your CPU cores)
 ./scripts/run.sh benchmark_medium_100items.txt openmp
@@ -178,7 +180,7 @@ The implementation employs a branch-and-bound algorithm with the following key c
 ## 📁 Project Structure
 
 ```
-OptiSack/
+parallel-knapsack/
 ├── data/                    # Test datasets
 ├── include/                 # Header files
 │   ├── common/             # Shared utilities
