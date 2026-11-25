@@ -148,7 +148,7 @@ as mean time per run over 10 iterations. For each dataset the best thread count
 The experimental results demonstrate exceptional performance improvements through parallelization on Apple Silicon:
 
 - **OpenMP**: Speedup grows with the search tree. It is roughly flat (1.2x-2.0x) on the small instances, where the parallel region barely amortizes its own overhead, and reaches 5.7x-7.9x on the two instances that take seconds rather than milliseconds. On 140-item subset sum it is a 0.77x *slowdown*.
-- **OpenMPI**: Slower than the sequential baseline on four of seven datasets, badly so on 112 items (0.03x). Every rank redundantly explores the same 5.5M nodes on the smaller instances, so message-passing overhead is paid for no reduction in work. It only pays off on the two largest instances.
+- **OpenMPI**: Slower than the sequential baseline on four of seven datasets (85, 100, 110 and 112 items), badly so on 112 items (0.03x). On those four it explores 1.6x to 31x as many nodes as the sequential solver. It is faster on the other three, where it explores fewer nodes. On every dataset the total node count is the same from 2 to 10 processes.
 - **Optimality**: The strongest result here. All three implementations agree on the optimal value for all seven datasets, so the parallel pruning does not sacrifice correctness.
 - **Honest read**: On one 8-core laptop this is a study of when parallel branch-and-bound stops being worth it, not a demonstration of large speedups.
 
@@ -219,7 +219,7 @@ The experimental results validate the effectiveness of parallel computing approa
 
 **OpenMP**: Best measured speedup is 7.94x at 4 threads on the 130-item subset-sum instance, against a theoretical ceiling of 8x on an 8-core machine. Speedup tracks problem size: instances that finish in ~100 ms show almost none, because thread setup and the shared bound update cost about as much as the work saved.
 
-**OpenMPI**: Generally slower than the sequential baseline. Each rank walks the same node count on the smaller instances, so the run pays communication cost without dividing the search. It only beats sequential on the 121-item and subset-sum instances, and never beats OpenMP.
+**OpenMPI**: Slower than the sequential baseline on four of seven datasets, all cases where it explores more nodes. It beats sequential on the 121-item and both subset-sum instances, and beats OpenMP only on the 140-item instance. Total node counts do not change with the process count, and 2 processes gave the best time on every dataset.
 
 **Where the speedup comes from**: Not from more cores alone. It comes from a deeper search tree giving the shared incumbent bound time to prune. That is why the two slowest sequential instances are the only ones with meaningful gains.
 
